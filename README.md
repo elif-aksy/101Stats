@@ -1,6 +1,10 @@
 # 101 Stats
 
-A mobile stats tracker for **101 Okey** (a Turkish rummy-style tile game), built with Expo Router and a local SQLite database. Track rooms, players, games, and hands, with a detailed scoring engine that mirrors the house rules players actually use at the table.
+A stats tracker for **101 Okey** (a Turkish rummy-style tile game), built with Expo Router and a local SQLite database. Track rooms, players, games, and hands, with a detailed scoring engine that mirrors the house rules players actually use at the table.
+
+**Live site:** [101-stats-tau.vercel.app](https://101-stats-tau.vercel.app)
+
+Also runs as a mobile app via Expo Go, or can be built as a native app with EAS Build.
 
 ## Features
 
@@ -19,8 +23,17 @@ A mobile stats tracker for **101 Okey** (a Turkish rummy-style tile game), built
 ## Tech stack
 
 - [Expo](https://expo.dev) (SDK 54) + [Expo Router](https://docs.expo.dev/router/introduction/) for file-based navigation
-- [expo-sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/) for local persistence
+- [expo-sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/) for local persistence (native, and web via its alpha WASM build)
 - TypeScript throughout
+- Deployed to [Vercel](https://vercel.com) as a static web export
+
+## Web support
+
+The app also runs as a website (`metro.config.js` configures the wasm asset + COOP/COEP headers that `expo-sqlite`'s web build needs; `vercel.json` carries the same headers in production). A few things to know about the web version:
+
+- Data is stored in the **browser's own storage** on each device, not on the server — it isn't shared between devices or browsers.
+- Mobile Safari can evict that storage after a long period of inactivity (Intelligent Tracking Prevention), so treat it as durable for regular use, not as a permanent archive.
+- `expo-sqlite`'s web support is alpha, per Expo's own docs.
 
 ## Getting started
 
